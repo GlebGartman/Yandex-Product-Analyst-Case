@@ -54,7 +54,7 @@ df.head(10)
 <details>
 <summary><strong>Результаты</strong></summary>
 
-<summary><strong>Задание 1: Диапазон дат в данных</strong></summary>
+<summary><strong>Задача 1: Диапазон дат в данных</strong></summary>
 
 📅 Определите даты, охватываемые в предоставленном наборе данных.
 
@@ -87,19 +87,64 @@ print(first_task)
 ![Диапазон дат](https://drive.google.com/uc?export=view&id=1d9L5amoo38IKcBBDucV-2CKqRM7BxpQX)
 
 
+---
 
 
+<summary><strong>Задача 2: Количество запросов с текстом «ютуб» по каждой платформе</strong></summary>
+
+📌 Необходимо посчитать, сколько раз в данных встречается слово **«ютуб»** в запросах, отдельно для каждой платформы (`desktop`, `touch`).
+
+Для обработки использовался SQL-запрос с фильтрацией по ключевому слову с учётом регистра (через `LIKE`/`ILIKE` в PostgreSQL или `LOWER(...) LIKE` в SQLite).
+
+### Код
+
+```python
+
+youtube = """
+SELECT platform, count(query) as kolvo
+FROM queries
+WHERE query like '%ютуб%' or query like '%Ютуб%'
+group by platform
+"""
+
+youtube_kolvo = pd.read_sql(youtube, conn)
+display(youtube_kolvo.style.hide(axis="index"))
+
+```
+
+### Количество запросов с текстом «ютуб» по платформам
+
+![Количество запросов с текстом «ютуб» по платформам](https://drive.google.com/uc?export=view&id=1Cd2fu0fyrN6vJV0hlDPcr4VZpePM32LS)
+
+---
 
 
+<summary><strong>Задача 3: Топ‑10 самых частотных запросов в каждой платформе (desktop и touch)</strong></summary>
+
+📌 Вывести 10 наиболее часто встречающихся запросов отдельно для `desktop` и `touch`.  
+Сравнить полученные списки и определить отличия в популярных запросах между платформами.
+
+### Сначала выведем 10 наиболее частотных запросов для платформы `desktop`
 
 
+desktop_top = """
+SELECT query, COUNT(query) as kolvo_zaprosov FROM queries
+WHERE platform = 'desktop'
+GROUP BY query
+order by kolvo_zaprosov desc
+LIMIT 10
+"""
 
+top_10_desktop = pd.read_sql(desktop_top, conn)
+display(top_10_desktop.style.hide(axis="index"))
 
+![Топ‑10 запросов — desktop](https://drive.google.com/uc?export=view&id=13x5rwIoIF3_OV7W_3b8-a_nCNNiEXoP-)
 
+### Теперь построим Линейчатую Диаграмму
 
+![Топ‑10 запросов — desktop](https://drive.google.com/uc?export=view&id=1jwjB96mqOZKCUOfit9ITIxO99I3ssDRO)
 
-
-
+---
 
 
 
