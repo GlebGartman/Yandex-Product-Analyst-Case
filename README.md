@@ -15,6 +15,7 @@
 
 <details>
 <summary><strong>Подключение к SQLite из Jupyter Notebook</strong></summary>
+
 SQLite — это встроенная в Python база данных, не требующая установки.
 Для подключения в Jupyter Notebook используем модуль `sqlite3`
 
