@@ -126,6 +126,7 @@ display(youtube_kolvo.style.hide(axis="index"))
 
 ### Сначала выведем 10 наиболее частотных запросов для платформы `desktop`
 
+```python
 
 desktop_top = """
 SELECT query, COUNT(query) as kolvo_zaprosov FROM queries
@@ -138,16 +139,38 @@ LIMIT 10
 top_10_desktop = pd.read_sql(desktop_top, conn)
 display(top_10_desktop.style.hide(axis="index"))
 
+```
+
 ![Топ‑10 запросов — desktop](https://drive.google.com/uc?export=view&id=13x5rwIoIF3_OV7W_3b8-a_nCNNiEXoP-)
 
-### Теперь построим Линейчатую Диаграмму
-
+### График Топ-10 запросов - desktop
 ![Топ‑10 запросов — desktop](https://drive.google.com/uc?export=view&id=1jwjB96mqOZKCUOfit9ITIxO99I3ssDRO)
 
 ---
 
 
+### Теперь выведем 10 наиболее частотных запросов для платформы `touch`.
 
+```python
+
+touch_top = """
+SELECT query, COUNT(query) as kolvo_zaprosov FROM queries
+WHERE platform = 'touch'
+GROUP BY query
+order by kolvo_zaprosov desc
+LIMIT 10
+"""
+
+top_10_touch = pd.read_sql(touch_top, conn)
+display(top_10_touch.style.hide(axis="index"))
+
+```
+
+![Топ‑10 запросов для touch](https://drive.google.com/uc?export=view&id=1QQQAcndZHC4bvADCUWtVYJ9-mt2qW94x)
+
+### График Топ-10 запросов - touch
+
+![Топ‑10 частых запросов на touch](https://drive.google.com/uc?export=view&id=1LhgKvPMCCO8v2YypaxdJFDjR013OYh-0)
 
 
 
